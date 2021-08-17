@@ -12,10 +12,12 @@ def extension_checker(**vkwargs):
         def wrapper(*args, **kwargs):
             for varname, extension in vkwargs.items():
                 if varname in kwargs:
-                    assert kwargs[varname].split(".")[-1] == extension, InvalidExtensionException(varname, extension, kwargs[varname])
+                    if not kwargs[varname].split(".")[-1] == extension:
+                        raise InvalidExtensionException(varname, extension, kwargs[varname])
                 elif varname in func_varnames:
                     idx = args_index[varname]
-                    assert args[idx].split(".")[-1] == extension, InvalidExtensionException(varname, extension, args[idx])
+                    if not args[idx].split(".")[-1] == extension:
+                        raise InvalidExtensionException(varname, extension, args[idx])
 
             return func(*args, **kwargs)
 

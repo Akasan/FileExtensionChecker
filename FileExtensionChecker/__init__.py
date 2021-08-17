@@ -1,1 +1,1 @@
-from .FileExtensionChecker import extension_checker
+from .FileExtensionChecker import extension_checker, InvalidExtensionException
