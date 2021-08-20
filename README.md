@@ -10,7 +10,7 @@ You can install FileExtensionChecker by pip
 
 ## How to use
 ```python
-from FileNameChecker import extension_checker
+from UsefulDecorators.FileNameChecker import extension_checker
 
 @extension_checker(filename1="xml")
 def hoge(filename1):
