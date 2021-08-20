@@ -1,6 +1,6 @@
-# FileExtensionChecker
+# UsefulDecorators
 ## What is this?
-FileExtensionChecker is for checking file extension of function's arguments.
+UsefulDecorators is for checking file extension of function's arguments.
 
 ## How to install
 You can install FileExtensionChecker by pip

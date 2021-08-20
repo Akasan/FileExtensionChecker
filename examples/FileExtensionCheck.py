@@ -1,4 +1,4 @@
-from FileExtensionChecker import extension_checker, InvalidExtensionException
+from UsefulDecorators.FileExtensionChecker import extension_checker, InvalidExtensionException
 
 
 @extension_checker(filename="xml")
