@@ -7,14 +7,14 @@ def _get_requires_from_file(filename):
 
 
 setup(
-    name="FunctionChecker",
+    name="UsefulDecorators",
     version="1.0.1",
     license="MIT",
     author="Akagawa Daisuke",
-    url="http://github.com/Akasan/FunctionChecker",
-    packages=["FunctionChecker",
-              "FunctionChecker.FileExtensionChecker",
-              "FunctionChecker.FunctionAnnotationChecker"],
+    url="http://github.com/Akasan/UsefulDecorators",
+    packages=["UsefulDecorators",
+              "UsefulDecorators.FileExtensionChecker",
+              "UsefulDecorators.FunctionAnnotationChecker"],
     include_package_data=True,
     zip_safe=False,
 )
