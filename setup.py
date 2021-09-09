@@ -7,14 +7,15 @@ def _get_requires_from_file(filename):
 
 
 setup(
-    name="UsefulDecorators",
+    name="udeco",
     version="1.0.1",
     license="MIT",
     author="Akagawa Daisuke",
-    url="http://github.com/Akasan/UsefulDecorators",
-    packages=["UsefulDecorators",
-              "UsefulDecorators.FileExtensionChecker",
-              "UsefulDecorators.FunctionAnnotationChecker"],
+    url="http://github.com/Akasan/udeco",
+    packages=["udeco",
+              "udeco.FileExtensionChecker",
+              "udeco.TimeRecorder",
+              "udeco.FunctionAnnotationChecker"],
     include_package_data=True,
     zip_safe=False,
 )
