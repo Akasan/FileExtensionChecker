@@ -1,3 +1,4 @@
+from ..FunctionAnnotationChecker.FunctionAnnotationChecker import _get_default_args
 class InvalidExtensionException(Exception):
     """InvalidExtensionException will be raised when arguments file extension is not equal to specified extension."""
 
@@ -11,6 +12,24 @@ class InvalidExtensionException(Exception):
         """
         msg = f"{arg_name} requires extension {valid_extension}. You specified the argument as {value}"
         super().__init__(msg)
+
+
+def _sort_argument(*args, **kwargs):
+    argument_names = kwargs.get("argument_names")
+    del kwargs["argument_names"]
+
+    result = {}
+    for arg, name in zip(args, argument_names):
+        if name == "self":
+            continue
+
+        result[name] = arg
+
+    for k, v in kwargs.items():
+        if not k in result:
+            result[k] = v
+
+    return result
 
 
 def extension_checker(**vkwargs):
@@ -27,24 +46,35 @@ def extension_checker(**vkwargs):
         hoge.jpg
     """
 
+    accept_none = vkwargs.get("accept_none", False)
     def _check_filename(func):
         func_varnames = list(func.__code__.co_varnames[: func.__code__.co_argcount])
         args_index = {k: i for i, k in enumerate(func_varnames)}
+        default_args = _get_default_args(func)
 
         def wrapper(*args, **kwargs):
+            kwargs.update(default_args)
+            arguments = _sort_argument(*args, **kwargs, argument_names=list(func.__code__.co_varnames))
+
             for varname, extension in vkwargs.items():
-                if varname in kwargs:
-                    if not kwargs[varname].split(".")[-1] == extension:
-                        raise InvalidExtensionException(
-                            varname, extension, kwargs[varname]
-                        )
+                if varname == "accept_none":
+                    continue
 
-                elif varname in func_varnames:
-                    idx = args_index[varname]
-                    if not args[idx].split(".")[-1] == extension:
-                        raise InvalidExtensionException(varname, extension, args[idx])
+                if arguments[varname] is None and accept_none:
+                    continue
 
-            return func(*args, **kwargs)
+                ext = arguments[varname].split(".")[-1]
+                if not ext == extension:
+                    raise InvalidExtensionException(
+                        varname, extension, arguments[varname]
+                    )
+
+
+            if func_varnames[0] == "self":
+                arguments["self"] = args[0]
+
+            return func(**arguments)
+            # return func(*args, **kwargs)
 
         return wrapper
 
