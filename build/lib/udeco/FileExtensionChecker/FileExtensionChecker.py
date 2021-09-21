@@ -1,4 +1,7 @@
 from ..FunctionAnnotationChecker.FunctionAnnotationChecker import _get_default_args
+
+
+
 class InvalidExtensionException(Exception):
     """InvalidExtensionException will be raised when arguments file extension is not equal to specified extension."""
 
@@ -69,12 +72,10 @@ def extension_checker(**vkwargs):
                         varname, extension, arguments[varname]
                     )
 
-
             if func_varnames[0] == "self":
                 arguments["self"] = args[0]
 
             return func(**arguments)
-            # return func(*args, **kwargs)
 
         return wrapper
 

@@ -1,3 +1,4 @@
+from functools import wraps
 from typing import Union, Any
 import inspect
 
@@ -29,6 +30,7 @@ def annotation_checker(func):
     func_varnames = list(func.__code__.co_varnames[: func.__code__.co_argcount])
     func_varnames_keys = {k: i for i, k in enumerate(func_varnames) if k in annotations}
 
+    @wraps(func)
     def wrapper(*args, **kwargs):
         annotations_list = [k for k in annotations.keys()]
         annotations_list.remove("return")

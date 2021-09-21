@@ -1,3 +1,4 @@
+from functools import wraps
 import time
 import numpy as np
 
@@ -6,6 +7,7 @@ _print_orig = print
 
 def timer(iteration: int = 1, result_index: int = 0, print_only_first: bool = True):
     def _timer(func):
+        @wraps(func)
         def wrapper(*args, **kwargs):
             result = []
             result_append = result.append

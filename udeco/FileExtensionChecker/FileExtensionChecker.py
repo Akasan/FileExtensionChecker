@@ -1,3 +1,4 @@
+from functools import wraps
 from ..FunctionAnnotationChecker.FunctionAnnotationChecker import _get_default_args
 
 
@@ -48,13 +49,14 @@ def extension_checker(**vkwargs):
         >>> hoge(filename="hoge.jpg")
         hoge.jpg
     """
-
     accept_none = vkwargs.get("accept_none", False)
+
     def _check_filename(func):
         func_varnames = list(func.__code__.co_varnames[: func.__code__.co_argcount])
         args_index = {k: i for i, k in enumerate(func_varnames)}
         default_args = _get_default_args(func)
 
+        @wraps(func)
         def wrapper(*args, **kwargs):
             kwargs.update(default_args)
             arguments = _sort_argument(*args, **kwargs, argument_names=list(func.__code__.co_varnames))
