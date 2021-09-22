@@ -62,6 +62,7 @@ def extension_checker(**vkwargs):
             arguments = _sort_argument(*args, **kwargs, argument_names=list(func.__code__.co_varnames))
 
             for varname, extension in vkwargs.items():
+                extensions = extension.split(",")
                 if varname == "accept_none":
                     continue
 
@@ -69,9 +70,9 @@ def extension_checker(**vkwargs):
                     continue
 
                 ext = arguments[varname].split(".")[-1]
-                if not ext == extension:
+                if not ext in extensions:
                     raise InvalidExtensionException(
-                        varname, extension, arguments[varname]
+                        varname, extensions, arguments[varname]
                     )
 
             if func_varnames[0] == "self":

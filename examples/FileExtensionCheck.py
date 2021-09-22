@@ -1,12 +1,8 @@
-from UsefulDecorators.FileExtensionChecker import extension_checker, InvalidExtensionException
+from udeco.FileExtensionChecker import extension_checker, InvalidExtensionException
 
 
-@extension_checker(filename="xml")
+@extension_checker(filename="xml,pdf,jpg")
 def hoge(filename):
     print(filename)
 
 
-try:
-    hoge("hoge.pdf")
-except InvalidExtensionException:
-    print("error")
