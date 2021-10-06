@@ -1,1 +1,1 @@
-from TimeRecorder import timer
+from .TimeRecorder import timer
